@@ -20,6 +20,8 @@ This is another Internship Project, a strategic Pen-n-Paper game for two Players
 - In multiple games, hitting the end line (zone 3 or -3) scores 2 points; otherwise, 1 point. 
 
 ![image](https://github.com/user-attachments/assets/b8d82706-79aa-4bb7-9a63-85c83d126dff)
+
+
 source: https://de.wikipedia.org/wiki/Tennis_(Bleistiftspiel)
 
 **NOTE**
