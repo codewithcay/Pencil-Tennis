@@ -1,0 +1,18 @@
+using Pencil_Tennis.P1;
+using Pencil_Tennis.P2;
+
+namespace Pencil_Tennis;
+
+public class RatingMove
+{
+    public int ratingplayer1;
+    
+    public void RatingMoves(int winner)
+    {
+        if (winner == 1)
+        {
+            ratingplayer1++;
+        }
+    }
+    
+}
