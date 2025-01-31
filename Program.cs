@@ -15,12 +15,15 @@ Console.WriteLine("Press any key to continue...");
 Console.ReadKey();
 var player1 = new Player1();
 var player2 = new Player2();
+var roundcounter = new GameField();
+var db = new DbMethod_w_Transection();
 var p1F1 = false;
 var p1F2 = false;
 var p2F1 = false;
 var p2F2 = false;
 var gamefield = true;
 player1.ResetPoints();
+db.CreateTable();
 
 while (true)
 {
@@ -184,6 +187,6 @@ while (true)
         }
         
     }
-    Console.WriteLine(player1.P1Points);
-    Console.WriteLine(player2.P2Points);
+    roundcounter.Roundcount();
+    db.InsertNewRoundRow(BallLocation);
 }
