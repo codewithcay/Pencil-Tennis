@@ -24,4 +24,13 @@ public class GameField
     {
         return _layout;
     }
+    public void RoundCount()
+    {
+        round++;
+    }
+
+    public int RoundReturn()
+    {
+        return round;
+    }
 }
