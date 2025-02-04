@@ -24,12 +24,11 @@ var p1F2 = false;
 var p2F1 = false;
 var p2F2 = false;
 var gamefield = true;
-var winner = 0;
 var bet1 = 0;
 var bet2 = 0;
 var BallLocation = 0;
 db.CreateTable();
-db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2, ratingmove);
+db.CreateRankingTable();
 
 while (true)
 {
@@ -79,32 +78,30 @@ while (true)
     
     Console.WriteLine("Bet is set!");
     Console.WriteLine(bet2);
+    roundcounter.RoundCount();
+    db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2, ratingmove);
+    
     player1.UpdatePoints(bet1);
     player2.UpdatePoints(bet2);
 
     if (bet1 == bet2)
     {
         Console.WriteLine("Tie! The ball stays in current Field.");
-        roundcounter.RoundCount();
-
         if (player1.P1Points <= 0)
         {
             Console.WriteLine("Player1 has no Points to bet. Player2 WINS!");
-            ratingmove.RatingMoves(winner);
-            db.SetRatings(winner);
+            roundcounter.RoundCount();
+            db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2, ratingmove);
             break;
         }
 
         if (player2.P2Points <= 0)
         {
             Console.WriteLine("Player2 has no Points to bet. Player1 WINS!");
-            winner = 1;
-            ratingmove.RatingMoves(winner);
-            db.SetRatings(winner);
+            roundcounter.RoundCount();
+            db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2, ratingmove);
             break;
         }
-        roundcounter.RoundCount();
-        db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2, ratingmove);
     }
     else if (bet1 > bet2)
     {
@@ -140,10 +137,7 @@ while (true)
             var gameField2 = new GameField();
             Console.WriteLine(gameField2.GetLayout());
             BallLocation = -3;
-            winner = 1;
-            roundcounter.RoundCount();
             db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2, ratingmove);
-            db.SetRatings(winner);
             break;
         }
         if (player1.P1Points <= 0)
@@ -151,21 +145,16 @@ while (true)
             Console.WriteLine("Player1 has no Points to bet. Player2 WINS!");
             roundcounter.RoundCount();
             db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2,ratingmove);
-            db.SetRatings(winner);
             break;
         }
 
         else if (player2.P2Points <= 0)
         {
             Console.WriteLine("Player2 has no Points to bet. Player1 WINS!");
-            winner = 1;
             roundcounter.RoundCount();
             db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2, ratingmove);
-            db.SetRatings(winner);
             break;
         }
-        roundcounter.RoundCount();
-        db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2, ratingmove);
     }
     else if (bet1 < bet2)
     {
@@ -185,7 +174,7 @@ while (true)
         }
         else if (p1F1)
         {
-            Console.WriteLine("The Ball goes in Player2's second field");
+            Console.WriteLine("The Ball goes in Player1's second field");
             var ball = new BallP1F2();
             Console.WriteLine(ball.GetLayout());
             BallLocation = 2;
@@ -199,8 +188,7 @@ while (true)
             Console.WriteLine(gameField2.GetLayout());
             BallLocation = 3;
             roundcounter.RoundCount();
-            db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2, ratingmove);
-            db.SetRatings(winner);
+            db.InsertNewRoundRow(BallLocation, roundcounter, player1, player2, ratingmove);
             break;
         }
 
@@ -208,23 +196,18 @@ while (true)
         {
             Console.WriteLine("Player1 has no Points to bet. Player2 WINS!");
             roundcounter.RoundCount();
-            db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2, ratingmove);
-            db.SetRatings(winner);
+            db.InsertNewRoundRow(BallLocation, roundcounter, player1, player2, ratingmove);
             break;
         }
 
         if (player2.P2Points <= 0)
         {
             Console.WriteLine("Player2 has no Points to bet. Player1 WINS!");
-            winner = 1;
             roundcounter.RoundCount();
-            db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2, ratingmove);
-            db.SetRatings(winner);
+            db.InsertNewRoundRow(BallLocation, roundcounter, player1, player2, ratingmove);
             break;
         }
-        roundcounter.RoundCount();
-        db.InsertNewRoundRow(BallLocation,roundcounter,player1,player2, ratingmove);
     }
-
-   
+    db.SaveRanking();
+}
 }
